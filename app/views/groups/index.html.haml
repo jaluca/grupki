@@ -1,0 +1,15 @@
+%h2 Grupy
+%p= link_to "Wyloguj mnie", destroy_user_session_path
+%hr
+- form_for @search, :url => groups_path, :html => {:method => :get} do |f|
+  = render :partial => "form2", :locals => {:f => f}
+  = f.submit "szukaj"
+%hr
+%p= link_to "Nowa grupa", new_group_path
+%hr
+- @groups.each do |group|
+  %b= group.name
+  %p= group.description
+  = link_to "Wiecej", group
+  %hr
+%p= will_paginate @groups

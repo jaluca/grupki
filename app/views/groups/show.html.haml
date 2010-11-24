@@ -1,0 +1,22 @@
+%h1= @group.name
+%p= @group.description
+%hr
+%h2= "Czlonkowie:"
+- @group.users.each do |user|
+    %p= "#{user.email}"
+%hr
+-if @group.member?(current_user)
+    %p= "Jestes zapisany do grupy"
+-else
+    %p= link_to "Dolacz do grupy", group_membership_requests_path(@group.id), :confirm => "czy napewno chcesz dolaczyc?", :method => :post
+  
+-if @group.admin?(current_user)
+    - @group.membership_requests.each do |request|
+        %p= "mail proszacego: #{request.user.email}"
+        %p= link_to "zatwierdz", accept_membership_request_path(request.id)
+        
+    %p= link_to "Edytuj", edit_group_path(@group)
+    %p= link_to "Usun grupe", group_path(@group), :method => :delete
+    
+%p= link_to "Wszystkie grupy", groups_path
+%p= link_to "Wyloguj mnie", destroy_user_session_path

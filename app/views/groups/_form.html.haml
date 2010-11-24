@@ -1,0 +1,12 @@
+- if @group.errors.any?
+  #errorExplanation
+    %h2
+      = pluralize(@company.errors.count, "error")
+    %ul  
+    - @company.errors.full_messages.each do |msg|
+      %li= msg
+%p= f.label :name, "Nazwa grupy"
+%p= f.text_field :name
+%p= f.label :description, "Opis grupy"
+
+%p= f.text_area :description
