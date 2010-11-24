@@ -1,7 +1,7 @@
 class MembershipRequestsController < ApplicationController
   def create
      @membership_request = current_user.membership_requests.build(:group_id => params[:group_id])
-     @membership_requests = MembershipRequest.create(:user => current_user, :group_id => params[:group_id])
+     #@membership_requests = MembershipRequest.create(:user => current_user, :group_id => params[:group_id])
      if @membership_request.save
        flash[:notice] = "oczekiwanie na dodanie do grupy"
        redirect_to groups_path
@@ -11,7 +11,8 @@ class MembershipRequestsController < ApplicationController
    end
    
    def accept
-    membership_request = current_user.membership_requests.find(params[:id])
+    #membership_request = current_user.membership_requests.find(params[:id])
+    membership_request = MembershipRequest.find(params[:id])
     user = membership_request.user
     group = membership_request.group
     #membership = Membership.new(:user => user, :group => group)
